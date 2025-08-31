@@ -1,0 +1,409 @@
+isadaora  estrutura-dados1  ♥ 08:59  code funcao.c
+isadaora  estrutura-dados1  ♥ 08:59  ls -l
+total 8
+-rw-rw-r-- 1 isadaora isadaora 371 ago 28 09:14 funcao.c
+-rw-rw-r-- 1 isadaora isadaora 317 ago 25 09:20 soma.c
+isadaora  estrutura-dados1  ♥ 09:15  gcc -g funcao.c -o funcao
+isadaora  estrutura-dados1  ♥ 09:16  ls -lah
+total 36K
+drwxrwxr-x 2 isadaora isadaora 4,0K ago 28 09:16 .
+drwxr-xr-x 6 isadaora isadaora 4,0K ago 25 22:10 ..
+-rwxrwxr-x 1 isadaora isadaora  18K ago 28 09:16 funcao
+-rw-rw-r-- 1 isadaora isadaora  371 ago 28 09:14 funcao.c
+-rw-rw-r-- 1 isadaora isadaora  317 ago 25 09:20 soma.c
+isadaora  estrutura-dados1  ♥ 09:19  gdb ./funcao
+GNU gdb (Ubuntu 15.0.50.20240403-0ubuntu1) 15.0.50.20240403-git
+Copyright (C) 2024 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./funcao...
+(gdb) start
+Ponto de parada temporário 1 at 0x11b3: file funcao.c, line 15.
+Starting program: /home/isadaora/Documentos/estrutura-dados1/funcao 
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.ubuntu.com>
+Enable debuginfod for this session? (y or [n]) y
+Debuginfod has been enabled.
+To make this setting permanent, add 'set debuginfod enabled on' to .gdbinit.
+Downloading separate debug info for system-supplied DSO at 0x7ffff7fc3000
+[Thread debugging using libthread_db enabled]                                   
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Temporary breakpoint 1, main () at funcao.c:15
+15	{
+(gdb) print a
+$1 = 32767
+(gdb) print b
+$2 = -9568
+(gdb) list
+10	  
+11	  return soma;
+12	}
+13	
+14	int main()
+15	{
+16	  int a = 1, b;
+17	  int soma;
+18	
+19	  while(a > 0)
+(gdb) where
+#0  main () at funcao.c:15
+(gdb) list 1, 20
+1	#include <stdio.h>
+2	#include <stdlib.h>
+3	
+4	int somar(int x, int y);
+5	
+6	int somar(int x, int y)
+7	{
+8	  int soma;
+9	  soma = x + y;
+10	  
+11	  return soma;
+12	}
+13	
+14	int main()
+15	{
+16	  int a = 1, b;
+17	  int soma;
+18	
+19	  while(a > 0)
+20	  {
+(gdb) list
+21	    printf("\nInforme dois números A e B: ");
+22	    scanf("%d %d",&a,&b);
+23	
+24	    soma = somar(a,b);
+25	    printf("\nResultado da soma A + B\n\n: %d",soma);
+26	  }
+27	
+28	  return 0;
+29	}
+(gdb) next
+16	  int a = 1, b;
+(gdb) print a
+$3 = 32767
+(gdb) next
+19	  while(a > 0)
+(gdb) print a
+$4 = 1
+(gdb) where
+#0  main () at funcao.c:19
+(gdb) next
+21	    printf("\nInforme dois números A e B: ");
+(gdb) next
+
+22	    scanf("%d %d",&a,&b);
+(gdb) next
+Informe dois números A e B: 10 8
+24	    soma = somar(a,b);
+(gdb) next
+25	    printf("\nResultado da soma A + B\n\n: %d",soma);
+(gdb) print soma
+$5 = 18
+(gdb) break 24
+Ponto de parada 2 at 0x5555555551fe: file funcao.c, line 24.
+(gdb) next
+
+Resultado da soma A + B
+
+19	  while(a > 0)
+(gdb) list
+14	int main()
+15	{
+16	  int a = 1, b;
+17	  int soma;
+18	
+19	  while(a > 0)
+20	  {
+21	    printf("\nInforme dois números A e B: ");
+22	    scanf("%d %d",&a,&b);
+23	
+(gdb) list
+24	    soma = somar(a,b);
+25	    printf("\nResultado da soma A + B\n\n: %d",soma);
+26	  }
+27	
+28	  return 0;
+29	}
+(gdb) where
+#0  main () at funcao.c:19
+(gdb) next
+21	    printf("\nInforme dois números A e B: ");
+(gdb) continue
+Continuing.
+: 18
+Informe dois números A e B: 4 7
+
+Breakpoint 2, main () at funcao.c:24
+24	    soma = somar(a,b);
+(gdb) print a
+$6 = 4
+(gdb) print b
+$7 = 7
+(gdb) display a
+1: a = 4
+(gdb) display b
+2: b = 7
+(gdb) display soma
+3: soma = 18
+(gdb) next
+25	    printf("\nResultado da soma A + B\n\n: %d",soma);
+1: a = 4
+2: b = 7
+3: soma = 11
+(gdb) display a > 10000
+4: a > 10000 = 0
+(gdb) next
+
+Resultado da soma A + B
+
+19	  while(a > 0)
+1: a = 4
+2: b = 7
+3: soma = 11
+4: a > 10000 = 0
+(gdb) where
+#0  main () at funcao.c:19
+(gdb) list
+14	int main()
+15	{
+16	  int a = 1, b;
+17	  int soma;
+18	
+19	  while(a > 0)
+20	  {
+21	    printf("\nInforme dois números A e B: ");
+22	    scanf("%d %d",&a,&b);
+23	
+(gdb) list 1, 29
+1	#include <stdio.h>
+2	#include <stdlib.h>
+3	
+4	int somar(int x, int y);
+5	
+6	int somar(int x, int y)
+7	{
+8	  int soma;
+9	  soma = x + y;
+10	  
+11	  return soma;
+12	}
+13	
+14	int main()
+15	{
+16	  int a = 1, b;
+17	  int soma;
+18	
+19	  while(a > 0)
+20	  {
+21	    printf("\nInforme dois números A e B: ");
+22	    scanf("%d %d",&a,&b);
+23	
+--Type <RET> for more, q to quit, c to continue without paging--q
+Quit
+(gdb) next
+21	    printf("\nInforme dois números A e B: ");
+1: a = 4
+2: b = 7
+3: soma = 11
+4: a > 10000 = 0
+(gdb) continue
+Continuing.
+: 11
+Informe dois números A e B: 2 8
+
+Breakpoint 2, main () at funcao.c:24
+24	    soma = somar(a,b);
+1: a = 2
+2: b = 8
+3: soma = 11
+4: a > 10000 = 0
+(gdb) continue
+Continuing.
+
+Resultado da soma A + B
+
+: 10
+Informe dois números A e B: 5 7000  
+
+Breakpoint 2, main () at funcao.c:24
+24	    soma = somar(a,b);
+1: a = 5
+2: b = 7000
+3: soma = 10
+4: a > 10000 = 0
+(gdb) step
+somar (x=5, y=7000) at funcao.c:9
+9	  soma = x + y;
+(gdb) print a
+No symbol "a" in current context.
+(gdb) print soma
+$8 = 10
+(gdb) info locals
+soma = 10
+(gdb) info args
+x = 5
+y = 7000
+(gdb) list
+4	int somar(int x, int y);
+5	
+6	int somar(int x, int y)
+7	{
+8	  int soma;
+9	  soma = x + y;
+10	  
+11	  return soma;
+12	}
+13	
+(gdb) where
+#0  somar (x=5, y=7000) at funcao.c:9
+#1  0x000055555555520d in main () at funcao.c:24
+(gdb) next
+11	  return soma;
+(gdb) display soma
+5: soma = 7005
+(gdb) next
+12	}
+5: soma = 7005
+(gdb) next
+main () at funcao.c:25
+25	    printf("\nResultado da soma A + B\n\n: %d",soma);
+1: a = 5
+2: b = 7000
+3: soma = 7005
+4: a > 10000 = 0
+(gdb) list
+20	  {
+21	    printf("\nInforme dois números A e B: ");
+22	    scanf("%d %d",&a,&b);
+23	
+24	    soma = somar(a,b);
+25	    printf("\nResultado da soma A + B\n\n: %d",soma);
+26	  }
+27	
+28	  return 0;
+29	}
+(gdb) list
+End of the file was already reached, use "list ." to list the current location again
+(gdb) list 1, 29
+1	#include <stdio.h>
+2	#include <stdlib.h>
+3	
+4	int somar(int x, int y);
+5	
+6	int somar(int x, int y)
+7	{
+8	  int soma;
+9	  soma = x + y;
+10	  
+11	  return soma;
+12	}
+13	
+14	int main()
+15	{
+16	  int a = 1, b;
+17	  int soma;
+18	
+19	  while(a > 0)
+20	  {
+21	    printf("\nInforme dois números A e B: ");
+22	    scanf("%d %d",&a,&b);
+23	
+--Type <RET> for more, q to quit, c to continue without paging--c
+24	    soma = somar(a,b);
+25	    printf("\nResultado da soma A + B\n\n: %d",soma);
+26	  }
+27	
+28	  return 0;
+29	}
+(gdb) where
+#0  main () at funcao.c:25
+(gdb) next
+
+Resultado da soma A + B
+
+19	  while(a > 0)
+1: a = 5
+2: b = 7000
+3: soma = 7005
+4: a > 10000 = 0
+(gdb) continue
+Continuing.
+: 7005
+Informe dois números A e B: 0 800
+
+Breakpoint 2, main () at funcao.c:24
+24	    soma = somar(a,b);
+1: a = 0
+2: b = 800
+3: soma = 7005
+4: a > 10000 = 0
+(gdb) step
+somar (x=0, y=800) at funcao.c:9
+9	  soma = x + y;
+5: soma = 7005
+(gdb) finish
+Run till exit from #0  somar (x=0, y=800) at funcao.c:9
+0x000055555555520d in main () at funcao.c:24
+24	    soma = somar(a,b);
+1: a = 0
+2: b = 800
+3: soma = 7005
+4: a > 10000 = 0
+Value returned is $9 = 800
+(gdb) next
+25	    printf("\nResultado da soma A + B\n\n: %d",soma);
+1: a = 0
+2: b = 800
+3: soma = 800
+4: a > 10000 = 0
+(gdb) n
+
+Resultado da soma A + B
+
+19	  while(a > 0)
+1: a = 0
+2: b = 800
+3: soma = 800
+4: a > 10000 = 0
+(gdb) n
+28	  return 0;
+1: a = 0
+2: b = 800
+3: soma = 800
+4: a > 10000 = 0
+(gdb) list
+23	
+24	    soma = somar(a,b);
+25	    printf("\nResultado da soma A + B\n\n: %d",soma);
+26	  }
+27	
+28	  return 0;
+29	}
+(gdb) n
+29	}
+1: a = 0
+2: b = 800
+3: soma = 800
+4: a > 10000 = 0
+(gdb) n
+Download failed: Argumento inválido.  Continuing without source file ./csu/../sysdeps/nptl/libc_start_call_main.h.
+__libc_start_call_main (
+    main=main@entry=0x5555555551a7 <main>, 
+    argc=argc@entry=1, argv=argv@entry=0x7fffffffdae8)
+    at ../sysdeps/nptl/libc_start_call_main.h:74
+aviso: 74	../sysdeps/nptl/libc_start_call_main.h: Arquivo ou diretório inexistente
+(gdb) 
