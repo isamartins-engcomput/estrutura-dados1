@@ -1,7 +1,6 @@
 programa
 /.vscode
-PE-refoço/ex-aloc
-PE-refoço/operations
-PE-refoço/funcao
-PE-refoço/troca-end-pont
-PE-refoço/troca-pont
+PE-refoço/alocacao/ex-aloc
+PE-refoço/funcoes/operations
+PE-refoço/soma-functions/funcao
+PE-refoço/troca-ponts/pont_estrutura
